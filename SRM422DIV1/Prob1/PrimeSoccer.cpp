@@ -9,22 +9,17 @@ double PrimeSoccer::getProbability(int skillOfTeamA, int skillOfTeamB)
 	double finalScoreProbabilities [19][2];
 	double probabilityOfTeamA = (double) skillOfTeamA / 100.0;
 	double probabilityOfTeamB = (double) skillOfTeamB / 100.0;
-
-        double SumofGreaterA = 0;
-        double SumofGreaterB = 0;
-	for(int n = NUMBEROFINTERVALS; n >= 0; n--)
+	for(int n = 0; n <= NUMBEROFINTERVALS; n++)
 	{
-            double probabilityA = n == 0 ? 1 : pow(probabilityOfTeamA, n);
-            double probabilityB = n == 0 ? 1 : pow(probabilityOfTeamB, n);
-            
-            
-            finalScoreProbabilities[n][0] = pow(1-probabilityOfTeamA, NUMBEROFINTERVALS) * pow(probabilityOfTeamA, n);
-            finalScoreProbabilities[n][1] = pow(1-probabilityOfTeamB, NUMBEROFINTERVALS) * pow(probabilityOfTeamB, n);
+            double c = getBinomialCoefficient(NUMBEROFINTERVALS, n);
+//            cout << "C for n = " << n << " is " << c << "\n";
+            finalScoreProbabilities[n][0] = c * pow(probabilityOfTeamA, (double)n) * pow(1.0 - probabilityOfTeamA, (double) NUMBEROFINTERVALS - (double) n);
+            finalScoreProbabilities[n][1] = c * pow(probabilityOfTeamB, (double)n) * pow(1.0 - probabilityOfTeamB, (double) NUMBEROFINTERVALS - (double) n);
             cout << n << "-" << finalScoreProbabilities[n][0] << "\n";
             cout << n << "-" << finalScoreProbabilities[n][1] << "\n";
 	}
 	
-        double probabilityOfPrime = finalScoreProbabilities[1][0] + finalScoreProbabilities[1][1] +
+        double probabilityOfPrime = 
                 finalScoreProbabilities[2][0] + finalScoreProbabilities[2][1] +
                 finalScoreProbabilities[3][0] + finalScoreProbabilities[3][1] + 
                 finalScoreProbabilities[5][0] + finalScoreProbabilities[5][1] +
@@ -35,6 +30,16 @@ double PrimeSoccer::getProbability(int skillOfTeamA, int skillOfTeamB)
         
 	cout << probabilityOfPrime;
 	return probabilityOfPrime;
+}
+
+unsigned long long PrimeSoccer::getFactorial(int n)
+{
+    return n <= 1 ? 1 : n * getFactorial(n -1);
+}
+
+double PrimeSoccer::getBinomialCoefficient(int n, int k)
+{
+    return getFactorial(n) / (getFactorial(k) * getFactorial(n-k));
 }
 
 
