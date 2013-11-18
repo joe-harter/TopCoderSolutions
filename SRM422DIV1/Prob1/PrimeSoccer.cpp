@@ -18,10 +18,8 @@ double PrimeSoccer::getProbability(int skillOfTeamA, int skillOfTeamB)
             double probabilityB = n == 0 ? 1 : pow(probabilityOfTeamB, n);
             
             
-            finalScoreProbabilities[n][0] = probabilityA - SumofGreaterA; 
-            finalScoreProbabilities[n][1] = probabilityB - SumofGreaterB;
-            SumofGreaterA += finalScoreProbabilities[n][0]; 
-            SumofGreaterB += finalScoreProbabilities[n][1];
+            finalScoreProbabilities[n][0] = pow(1-probabilityOfTeamA, NUMBEROFINTERVALS) * pow(probabilityOfTeamA, n);
+            finalScoreProbabilities[n][1] = pow(1-probabilityOfTeamB, NUMBEROFINTERVALS) * pow(probabilityOfTeamB, n);
             cout << n << "-" << finalScoreProbabilities[n][0] << "\n";
             cout << n << "-" << finalScoreProbabilities[n][1] << "\n";
 	}
@@ -34,7 +32,7 @@ double PrimeSoccer::getProbability(int skillOfTeamA, int skillOfTeamB)
                 finalScoreProbabilities[11][0] + finalScoreProbabilities[11][1] +
                 finalScoreProbabilities[13][0] + finalScoreProbabilities[13][1] +
                 finalScoreProbabilities[17][0] + finalScoreProbabilities[17][1]; 
-        );
+        
 	cout << probabilityOfPrime;
 	return probabilityOfPrime;
 }
