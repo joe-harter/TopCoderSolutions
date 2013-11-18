@@ -47,7 +47,11 @@ double PrimeSoccer::getProbability(int skillOfTeamA, int skillOfTeamB)
 
 unsigned long long PrimeSoccer::getFactorial(int n)
 {
-    return n <= 1 ? 1 : n * getFactorial(n -1);
+    unsigned long long result = 1;
+    for(int i = 1; i <= n; i++)
+        result *= i;
+    
+    return result;
 }
 
 double PrimeSoccer::getBinomialCoefficient(int n, int k)
