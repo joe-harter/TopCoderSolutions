@@ -5,19 +5,18 @@ using namespace std;
 
 double PrimeSoccer::getProbability(int skillOfTeamA, int skillOfTeamB)
 {
-	const int MAXSCORE = 36;
 	int NUMBEROFINTERVALS = 18;
         
 	double finalScoreProbabilities [19][2];
-	double probabilityOfTeamA = (double) skillOfTeamA / 100.0;
-	double probabilityOfTeamB = (double) skillOfTeamB / 100.0;
+	double pA = (double) skillOfTeamA / 100.0;
+	double pB = (double) skillOfTeamB / 100.0;
 	for(int n = 0; n <= NUMBEROFINTERVALS; n++)
 	{
-            double c = getBinomialCoefficient(NUMBEROFINTERVALS, n);
-            finalScoreProbabilities[n][0] = c * pow(probabilityOfTeamA, (double)n) 
-                    * pow(1.0 - probabilityOfTeamA, (double) NUMBEROFINTERVALS - (double) n);
-            finalScoreProbabilities[n][1] = c * pow(probabilityOfTeamB, 
-                    (double)n) * pow(1.0 - probabilityOfTeamB, (double) NUMBEROFINTERVALS - (double) n);
+            int c = getBinomialCoefficient(NUMBEROFINTERVALS, n);
+            finalScoreProbabilities[n][0] = c * pow(pA, (double)n) 
+                    * pow(1.0 - pA, (double) NUMBEROFINTERVALS - (double) n);
+            finalScoreProbabilities[n][1] = c * pow(pB, (double)n)
+                    * pow(1.0 - pB, (double) NUMBEROFINTERVALS - (double) n);
 	}
 	
         double probabilityOfPrime = 

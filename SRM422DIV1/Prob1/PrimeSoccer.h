@@ -6,3 +6,5 @@ class PrimeSoccer
             unsigned long long getFactorial(int n);
             double getBinomialCoefficient(int n, int k);
 };
+
+
