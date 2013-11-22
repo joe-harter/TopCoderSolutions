@@ -1,5 +1,6 @@
 #include <math.h>
 #include <string>
+#include <iostream>
 using namespace std;
 
 class MultiNumber
@@ -15,6 +16,8 @@ string MultiNumber::check(int number)
         for (int i = 1; i < floor(log10(number)) + 1 && multi == false; i++)
         {
                 int right = (int) (number % (int) pow(10, i));
+                if(right < pow(10, i-1) && right != 0)
+                    right *= 10;
                 int left = (int) ((number - (number % (int) pow(10, i))) / pow(10, i));
 
                 multi = productOfDigits(left) == productOfDigits(right);
@@ -26,8 +29,8 @@ string MultiNumber::check(int number)
 int MultiNumber::productOfDigits(int number)
 {
         int product = 1;
-
-        for (int i = floor(log10(number)) + 1; i > 0; i--)
+        int numberOfDigits = number == 0 ? 1 : floor(log10(number)) + 1;
+        for (int i = numberOfDigits; i > 0; i--)
         {
                 int digit =  (int) (number / (int) pow(10, i - 1));
                 number = (int) (number % (int) pow(10, i - 1));
@@ -35,4 +38,11 @@ int MultiNumber::productOfDigits(int number)
         }
 
         return product;
+}
+
+int main()
+{
+    MultiNumber obj;
+    string result = obj.check(10);
+    cout << result;
 }
